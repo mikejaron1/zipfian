@@ -1,0 +1,32 @@
+body {
+    background-color: #000000;
+}
+
+.classname {
+    text-align:center;
+    background:#00ffff;
+    width: 10%;
+    float:left;
+}
+
+.classname {
+    transition:All 0.50s ease;
+    -webkit-transition:All 0.50s ease;
+    -moz-transition:All 0.50s ease;
+    -o-transition:All 0.50s ease;
+
+    -webkit-transform:rotate(0deg) scale(1) skew(1deg) translate(0px);
+    -moz-transform:rotate(0deg) scale(1) skew(1deg) translate(0px);
+    -o-transform:rotate(0deg) scale(1) skew(1deg) translate(0px);
+    -ms-transform:rotate(0deg) scale(1) skew(1deg) translate(0px);
+    transform:rotate(0deg) scale(1) skew(1deg) translate(0px);
+}
+
+.classname:hover {
+    background:#575757;
+    -webkit-transform:rotate(360deg) scale(0.67) skew(1deg) translate(0px);
+    -moz-transform:rotate(360deg) scale(0.67) skew(1deg) translate(0px);
+    -o-transform:rotate(360deg) scale(0.67) skew(1deg) translate(0px);
+    -ms-transform:rotate(360deg) scale(0.67) skew(1deg) translate(0px);
+    transform:rotate(360deg) scale(0.67) skew(1deg) translate(0px)
+}

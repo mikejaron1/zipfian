@@ -1,0 +1,107 @@
+** Statistics **
+
+A group of people are polled for how many siblings they have. Here are the
+results:
+    [1, 2, 0, 3, 1, 1]
+
+1. What is the sample mean?
+
+(1 + 2 + 0 + 3 + 1 + 1) / 6
+= 4/3 = 1.333
+
+
+2. What is the sample variance?
+
+((1 - 4./3)**2 + (2 - 4./3)**2 + (0 - 4./3)**2 + (3 - 4./3)**2 + (1 - 4./3)**2 + (1 - 4./3)**2) / 6
+= .889
+
+
+** Probability **
+
+3. You have a coin and are trying to determine its bias (probability of 
+flipping heads). You flip it 10 times and the results are 
+{ H, T, H, T, T, H, T, T, H, H }. For what
+bias does this data have the maximum likelihood?
+
+number of heads / total number of flips
+= 0.5
+
+
+4. The bias of a coin is 0.4. What is the probability of flipping 
+3 or more heads in 5 flips?
+
+Assuming bias of 0.4 means heads 40% of the time:
+5C3 * 0.4^3 * 0.6^2 + 5C4 * 0.4^4 * 0.6^1 + 5C5 * 0.4^5 * 0.6^0
+= 5*4*3/(3*2) * 0.4**3 * 0.6**2 + 5*4*3*2/(4*3*2) * 0.4**4 * 0.6**1 + 0.4**5
+= 0.317
+
+The question was ambiguous, so if you assume you get heads 60% of the time:
+0.683
+
+
+** Continuous Distributions **
+
+X is a random variable with PMF
+   p(x) = x^2/a if x = -3, -2, -1, 0, 1, 2, 3, and
+   p(x) = 0 otherwise.
+
+5. Find a and E[X]
+
+sum of p(x) must be 1.
+9/a + 4/a + 1/a + 0/a + 1/a + 4/a + 9/a = 1
+28/a = 1
+a = 28
+
+E(X) = 0 (it's symmetric)
+
+
+6. Find the PMF of the random variable Z = (X - E[X])^2
+
+Since E[X] = 0, Z = X^2
+
+substitude z=x^2 in above PMF.
+Note that x = -3, -2, -1, 1, 2, 3 is the same as z = 1, 4, 9
+Since each of 1, 4, 9 appear twice, we multiply the result by 2.
+
+We get:
+P(z) = 2z/28 if z = 1, 4, 9
+
+Finally:
+p(z) = z/14 if z = 1, 4, 9
+p(z) = 0 otherwise
+
+
+7. Find the variance of X (use the result from above)
+
+var(X) = E(Z) = 1/14 * 1 + 4/14 * 4 + 9/14 * 9
+= 7
+
+
+** Conditional Probability **
+
+8. A medical test accurately classifieds 95% of the positive cases and 85% of
+the negative cases. 2% of the population is positive. If an arbitrary person
+tests positive, what is the probability that they are positive?
+
+Use Bayes Rule:
+p(pos|pos result) = p(pos) * p(pos result|pos) / p(pos result)
+= 0.02 * 0.95 / (0.02 * 0.95 + 0.98 * 0.15)
+=0.114
+
+
+** Linear Algebra **
+
+X and y are matrices defined as follows:
+
+X = | 1 2 |      y = | 2 |
+    | 2 4 |          | 3 |
+
+9. Compute Xy.
+
+Xy = |  8 |
+     | 16 |
+
+
+10. What is the rank of X? Why?
+
+The rank is 1. Two two rows are linearly dependent (the second is 2 times the first).

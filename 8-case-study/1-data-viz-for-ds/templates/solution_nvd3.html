@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="static/lib/d3.js"></script>
+  <script src="static/lib/nv.d3.js"></script>
+  <link href="static/lib/nv.d3.css" rel="stylesheet" type="text/css">
+  <style>
+        html, body, #chart1, svg {
+            margin: 0px;
+            padding: 0px;
+            height: 600px;
+            width: 100%;
+        }
+        #chart1 {
+            padding: 100px;
+        }
+  </style>
+  <script>
+    function draw(data) {
+    "use strict";
+     
+    // stops execution so you can inspect the data, etc.
+    debugger;   
+    // in the Chrome debugger: console.table(data);
+        
+    // wrap the data returned from d3.csv with the necessary data
+    // structures to format it according to what NVD3 expects
+    var series = { key: "sf_temp", values: data };
+    var nv_data = [series];
+    
+    nv.addGraph(function() {
+        var chart = nv.models.lineChart()
+            //Specify the data accessors.
+            .x(function(d) { return d.timestamp })  
+            .y(function(d) { return d.temperature })
+            .margin({top: 100, right: 100, bottom: 25, left: 100});
+            //.staggerLabels(true); not applicable for lineChart
+
+        chart.xAxis.tickFormat(function(d) { 
+            return d3.time.format('%m/%d (%I:00)')(new Date(d)) 
+        })
+        .axisLabel("Hour (GMT)");
+        
+        chart.yAxis
+            .axisLabel('Temperature (Celcius)')
+            .tickFormat(d3.format(',.2f'));
+        
+        // use D3 to bind our data to the SVG element
+        d3.select('#chart svg')
+            .datum(nv_data)
+            .call(chart);
+
+        // make chart responsive
+        nv.utils.windowResize(chart.update);
+
+        // whatever object we return is the chart that gets
+        // draw as part of the addGraph callback
+        return chart;
+    });    
+}
+  </script>
+</head>
+<body>
+  <div id="chart">
+    <svg></svg>  
+  </div>
+  <script>
+    // D3 utility to convert from timestamp string to Date object
+    var format = d3.time.format("%Y-%m-%dT%H:%M:%S.%LZ");
+      
+    d3.csv("static/data/{{ city }}-6hw.csv", function(d) {
+        // convert timestamp sting into a date object
+        d.timestamp = format.parse(d.timestamp);
+        
+        // use Javascripts type coersion to force the string
+        // that represents noise into a Numeric
+        d.temperature = +d.temperature;
+        return d;
+    }, draw);
+  </script>
+</body>
+</html>
